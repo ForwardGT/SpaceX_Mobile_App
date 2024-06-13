@@ -8,10 +8,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
@@ -32,20 +37,23 @@ fun RocketLaunchScreen() {
 
     val rocketOffsetY = remember { Animatable(screenHeightPx) }
     val coroutineScope = rememberCoroutineScope()
+    var isLaunched by remember { mutableStateOf(false) }
 
-    val imageSize = 300.dp
+    val imageSize = 1000.dp
 
-    LaunchedEffect(Unit) {
+    fun launchRocket() {
         coroutineScope.launch {
+            rocketOffsetY.snapTo(screenHeightPx)
             rocketOffsetY.animateTo(
-                targetValue = (-imageSize * 3 - (imageSize / 3)).value,
+                targetValue = (-imageSize * 3).value,
                 animationSpec = tween(durationMillis = 2500, easing = LinearEasing)
             )
         }
     }
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
         Image(
             painter = painterResource(id = R.drawable.rocket),
@@ -54,11 +62,14 @@ fun RocketLaunchScreen() {
                 .size(imageSize)
                 .offset {
                     IntOffset(
-                        (screenWidthPx / 2 - (imageSize / 2).toPx()).toInt(),
+                        ((-screenWidthPx / 2) + (screenWidth / 2).toPx()).toInt(),
                         rocketOffsetY.value.toInt()
                     )
                 },
             contentScale = ContentScale.FillHeight
         )
+        Button(onClick = { isLaunched = true; launchRocket() }) {
+            Text("Launch")
+        }
     }
 }
