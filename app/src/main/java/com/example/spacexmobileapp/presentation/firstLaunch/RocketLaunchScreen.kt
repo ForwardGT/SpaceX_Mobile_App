@@ -67,7 +67,7 @@ fun RocketLaunchScreen() {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.rocket),
-                contentDescription = "Rocket",
+                contentDescription = null,
                 modifier = Modifier
                     .size(imageSize)
                     .offset {
