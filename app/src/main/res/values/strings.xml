@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SpaceX Mobile App</string>
+    <string name="description_company_spacex">SpaceX designs, manufactures and launches advanced rockets and spacecraft. The company was founded in 2002 to revolutionize space technology, with the ultimate goal of enabling people to live on other planets.</string>
 </resources>
