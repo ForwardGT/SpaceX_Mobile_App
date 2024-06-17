@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -29,7 +30,6 @@ import androidx.compose.ui.util.lerp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import kotlin.math.absoluteValue
-
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -71,12 +71,15 @@ fun CarouselSlider() {
                         .crossfade(true)
                         .build(),
                     contentDescription = null,
-                    modifier = Modifier.size(350.dp),
+                    modifier = Modifier.size(320.dp),
                     contentScale = ContentScale.Crop,
                     clipToBounds = true
                 )
             }
         }
+
+        Spacer(modifier = Modifier.padding(top = 6.dp))
+
         IndicatorsBallCarrousel(pagerState)
     }
 }
@@ -95,8 +98,7 @@ private fun IndicatorsBallCarrousel(
     ) {
         repeat(pagerState.pageCount) { iteration ->
 
-            val color =
-                if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
+            val color = if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
 
             Box(
                 modifier = Modifier
