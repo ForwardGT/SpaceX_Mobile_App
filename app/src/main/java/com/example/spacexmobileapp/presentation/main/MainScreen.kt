@@ -1,10 +1,10 @@
 package com.example.spacexmobileapp.presentation.main
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,30 +23,33 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.spacexmobileapp.R
-import com.example.spacexmobileapp.preview.PreviewFun
 import com.example.spacexmobileapp.ui.theme.Purple100
 
 @Composable
 fun MainScreen(
-    onUpdatedTheme: () -> Unit,
+    listenerUpdatedTheme: () -> Unit,
     darkTheme: Boolean
 ) {
-    Scaffold { paddingValues ->
+    Scaffold(
+        bottomBar = {
+
+        }
+
+    ) { paddingValues ->
         Column(
+            verticalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier
                 .padding(paddingValues)
         ) {
             SpacexLogoHeader(
                 darkTheme = darkTheme,
-                clickListener = onUpdatedTheme
+                clickListener = listenerUpdatedTheme
             )
-            Spacer(modifier = Modifier.padding(top = 10.dp))
             CarouselSlider()
-            Spacer(modifier = Modifier.padding(top = 10.dp))
+
             Box {
                 Text(
                     textAlign = TextAlign.Center,
@@ -93,7 +96,6 @@ private fun SpacexLogoHeader(
                 darkTheme = darkTheme
             )
         }
-
     }
 }
 
@@ -124,5 +126,4 @@ private fun SwitcherTheme(
         )
     }
 }
-
 
