@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -23,9 +26,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.spacexmobileapp.R
+import com.example.spacexmobileapp.preview.PreviewFun
 import com.example.spacexmobileapp.ui.theme.Purple100
 
 @Composable
@@ -35,9 +40,30 @@ fun MainScreen(
 ) {
     Scaffold(
         bottomBar = {
-
+            val barItem = listOf(
+                NavigationItem.Rockets,
+                NavigationItem.Crew,
+                NavigationItem.History
+            )
+            NavigationBar(
+                content = {
+                    barItem.forEach { item ->
+                        NavigationBarItem(
+                            selected = false,
+                            onClick = { /*TODO*/ },
+                            icon = {
+                                Icon(
+                                    painterResource(id = item.icon),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(30.dp)
+                                )
+                            },
+                            label = { Text(text = item.nameItem) }
+                        )
+                    }
+                }
+            )
         }
-
     ) { paddingValues ->
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -127,3 +153,11 @@ private fun SwitcherTheme(
     }
 }
 
+@Preview
+@Composable
+fun Test() {
+    PreviewFun(
+        composableFun = { MainScreen(listenerUpdatedTheme = {}, darkTheme = true) },
+        isDarkMode = true
+    )
+}
