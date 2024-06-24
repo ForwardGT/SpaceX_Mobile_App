@@ -8,8 +8,8 @@ sealed class NavigationItem(
     val nameItem: String,
     val icon: Int
 ) {
-    data object Rocket : NavigationItem(
-        screen = Screen.Rocket,
+    data object Rockets : NavigationItem(
+        screen = Screen.RocketsCompany,
         nameItem = "Rockets",
         icon = R.drawable.rockets_icon
     )
