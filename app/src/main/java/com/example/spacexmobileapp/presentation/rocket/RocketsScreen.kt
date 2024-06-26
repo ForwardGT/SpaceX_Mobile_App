@@ -17,12 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
-import com.example.spacexmobileapp.presentation.main.MainViewModel
 
 @Composable
-fun RocketScreen(viewModel: MainViewModel) {
-
+fun RocketScreen() {
 
     Scaffold { paddingValues ->
         Column(
@@ -33,20 +32,18 @@ fun RocketScreen(viewModel: MainViewModel) {
             Row(
                 Modifier.fillMaxWidth()
             ) {
-                PostRocket(viewModel)
+                PostRocket()
             }
         }
     }
 }
 
-
 @Composable
-fun PostRocket(
-    viewModel: MainViewModel
-) {
+fun PostRocket() {
 
-    viewModel.getRocketAll()
+    val viewModel: RocketScreenViewModel = viewModel()
     val rocket by viewModel.rockets.collectAsState()
+    viewModel.getRocketAll()
 
 
     LazyColumn {

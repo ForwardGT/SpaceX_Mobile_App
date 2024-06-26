@@ -27,10 +27,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.spacexmobileapp.R
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun RocketLaunchScreen() {
+fun RocketLaunchScreen(
+    onClick: () -> Unit
+) {
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
     val screenWidth = configuration.screenWidthDp.dp
@@ -83,7 +86,14 @@ fun RocketLaunchScreen() {
                     containerColor = Color.DarkGray,
                     contentColor = Color.White
                 ),
-                onClick = { isLaunched = true; launchRocket() }
+                onClick = {
+                    coroutineScope.launch {
+                        isLaunched = true
+                        launchRocket()
+                        delay(1800)
+                        onClick()
+                    }
+                }
             ) {
                 Text("Launch")
             }

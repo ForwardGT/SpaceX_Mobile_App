@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.spacexmobileapp.R
 import com.example.spacexmobileapp.preview.PreviewFun
 import com.example.spacexmobileapp.ui.theme.Purple100
@@ -36,8 +37,8 @@ import com.example.spacexmobileapp.ui.theme.Purple100
 @Composable
 fun MainScreen(
     listenerUpdatedTheme: () -> Unit,
-    darkTheme: Boolean
-) {
+    darkTheme: Boolean,
+    ) {
     Scaffold(
         bottomBar = {
             val barItem = listOf(
@@ -50,7 +51,9 @@ fun MainScreen(
                     barItem.forEach { item ->
                         NavigationBarItem(
                             selected = false,
-                            onClick = { /*TODO*/ },
+                            onClick = {
+
+                            },
                             icon = {
                                 Icon(
                                     painterResource(id = item.icon),
@@ -151,13 +154,4 @@ private fun SwitcherTheme(
             )
         )
     }
-}
-
-@Preview
-@Composable
-fun Test() {
-    PreviewFun(
-        composableFun = { MainScreen(listenerUpdatedTheme = {}, darkTheme = true) },
-        isDarkMode = true
-    )
 }

@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.code.gson.google)
     implementation(libs.logging.interceptor.okhttp)
     implementation(libs.converter.gson.retrofit2)
+    implementation(libs.navigation.compose)
 
 
     implementation(libs.androidx.core.ktx)
