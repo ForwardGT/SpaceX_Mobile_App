@@ -2,7 +2,6 @@ package com.example.spacexmobileapp.presentation.rocket
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,9 +15,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.example.spacexmobileapp.utils.CustomSpacer
 
 @Composable
 fun RocketScreen() {
@@ -70,7 +69,7 @@ fun PostRocket() {
                 textAlign = TextAlign.Center,
                 text = "Description for rocket: \n ${rocket.description}"
             )
-            Spacer(modifier = Modifier.padding(top = 20.dp))
+            CustomSpacer(top = 20)
         }
     }
 }
