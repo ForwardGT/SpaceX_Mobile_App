@@ -1,5 +1,6 @@
 package com.example.spacexmobileapp.presentation.main
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,8 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -26,19 +29,20 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
 import com.example.spacexmobileapp.R
-import com.example.spacexmobileapp.preview.PreviewFun
 import com.example.spacexmobileapp.ui.theme.Purple100
+import com.example.spacexmobileapp.utils.LocalDarkTheme
 
 @Composable
 fun MainScreen(
-    listenerUpdatedTheme: () -> Unit,
-    darkTheme: Boolean,
-    ) {
+    navController: NavController
+) {
+    var isDarkTheme by LocalDarkTheme.current
+
     Scaffold(
         bottomBar = {
             val barItem = listOf(
@@ -49,10 +53,17 @@ fun MainScreen(
             NavigationBar(
                 content = {
                     barItem.forEach { item ->
-                        NavigationBarItem(
-                            selected = false,
-                            onClick = {
 
+                        val selected = navController.currentDestination?.hierarchy?.any {
+                            it.route == item.screen.route
+                        } ?: false
+
+                        NavigationBarItem(
+                            selected = selected,
+                            onClick = {
+                                if (!selected) {
+                                    navController.navigate(item.screen.route)
+                                }
                             },
                             icon = {
                                 Icon(
@@ -74,8 +85,8 @@ fun MainScreen(
                 .padding(paddingValues)
         ) {
             SpacexLogoHeader(
-                darkTheme = darkTheme,
-                clickListener = listenerUpdatedTheme
+                darkTheme = isDarkTheme,
+                clickListener = { isDarkTheme = !isDarkTheme }
             )
             CarouselSlider()
 

@@ -26,13 +26,15 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.spacexmobileapp.R
+import com.example.spacexmobileapp.navigation.Screen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
 fun RocketLaunchScreen(
-    onClick: () -> Unit
+    navController: NavController
 ) {
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
@@ -90,8 +92,8 @@ fun RocketLaunchScreen(
                     coroutineScope.launch {
                         isLaunched = true
                         launchRocket()
-                        delay(1800)
-                        onClick()
+                        delay(1800) // Animation delay
+                        navController.navigate(Screen.Main.route)
                     }
                 }
             ) {
