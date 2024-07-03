@@ -1,6 +1,6 @@
 package com.example.spacexmobileapp.presentation.main
 
-object LinkObject {
+object LinkCarouselObject {
 
     val images = listOf(
         "https://media.gettyimages.com/id/1722894905/photo/psyche-spacecraft-launch.jpg?s=2048x2048&w=gi&k=20&c=PZSEJtIJJW3eamZ8BgMpDpDznHI6f5H2C-BxFJjOQD0=",

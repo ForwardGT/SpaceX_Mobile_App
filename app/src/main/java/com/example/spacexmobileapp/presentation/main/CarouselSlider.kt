@@ -1,5 +1,6 @@
 package com.example.spacexmobileapp.presentation.main
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +19,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -26,23 +29,36 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import androidx.lifecycle.viewModelScope
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spacexmobileapp.utils.CustomSpacer
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CarouselSlider() {
-
-    val images = LinkObject.images
+fun CarouselSlider(
+    viewModel: MainViewModel
+) {
+    val images = viewModel.images
+    val firstState by viewModel.firstLoading.collectAsState()
     val pagerState = rememberPagerState(
         pageCount = { images.size }
     )
 
-    LaunchedEffect(pagerState) {
-        pagerState.scrollToPage(images.size / 2)
+    if (firstState) {
+        LaunchedEffect(pagerState) {
+            pagerState.scrollToPage(images.size / 2)
+            viewModel.changeFirstLoadingState()
+        }
     }
+
+
+
+    Log.d("TAG", "CarouselSlider: загрузка")
 
     Column {
         HorizontalPager(
