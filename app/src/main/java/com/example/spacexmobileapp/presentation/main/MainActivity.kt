@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
 
-            val isDarkTheme = remember { mutableStateOf(false) }
+            val isDarkTheme = remember { mutableStateOf(true) }
             val navController = rememberNavController()
 
             CompositionLocalProvider(value = LocalDarkTheme provides isDarkTheme) {

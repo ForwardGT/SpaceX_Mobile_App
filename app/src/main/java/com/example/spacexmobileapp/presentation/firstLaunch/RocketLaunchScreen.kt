@@ -59,7 +59,9 @@ fun RocketLaunchScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
         Image(
             painter = painterResource(id = R.drawable.background_rocket_screen),
             contentDescription = "Background",

@@ -30,9 +30,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.example.spacexmobileapp.R
+import com.example.spacexmobileapp.navigation.navigateTo
 import com.example.spacexmobileapp.ui.theme.Purple100
 import com.example.spacexmobileapp.utils.LocalDarkTheme
 
@@ -41,6 +43,7 @@ fun MainScreen(
     navController: NavController
 ) {
     var isDarkTheme by LocalDarkTheme.current
+    val viewModel: MainViewModel = viewModel()
 
     Scaffold(
         bottomBar = {
@@ -61,7 +64,7 @@ fun MainScreen(
                             selected = selected,
                             onClick = {
                                 if (!selected) {
-                                    navController.navigate(item.screen.route)
+                                    navController.navigateTo(item.screen.route)
                                 }
                             },
                             icon = {
@@ -80,29 +83,41 @@ fun MainScreen(
     ) { paddingValues ->
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier
-                .padding(paddingValues)
+            modifier = Modifier.padding(paddingValues)
         ) {
-            SpacexLogoHeader(
-                darkTheme = isDarkTheme,
-                clickListener = { isDarkTheme = !isDarkTheme }
-            )
-            CarouselSlider()
-
-            Box {
-                Text(
-                    textAlign = TextAlign.Center,
-                    text = stringResource(R.string.description_company_spacex)
-                )
+            MainScreenContent(
+                isDarkTheme = isDarkTheme,
+                viewModel = viewModel
+            ) {
+                isDarkTheme = !isDarkTheme
             }
         }
     }
 }
 
+@Composable
+private fun MainScreenContent(
+    viewModel: MainViewModel,
+    isDarkTheme: Boolean,
+    isDarkThemeSwitcherListener: () -> Unit
+) {
+    SpacexLogoHeader(
+        darkTheme = isDarkTheme,
+        isDarkThemeSwitcherListener = isDarkThemeSwitcherListener
+    )
+    CarouselSlider(viewModel = viewModel)
+
+    Box {
+        Text(
+            textAlign = TextAlign.Center,
+            text = stringResource(R.string.description_company_spacex)
+        )
+    }
+}
 
 @Composable
 private fun SpacexLogoHeader(
-    clickListener: () -> Unit,
+    isDarkThemeSwitcherListener: () -> Unit,
     darkTheme: Boolean
 ) {
     Row(
@@ -131,7 +146,7 @@ private fun SpacexLogoHeader(
             contentAlignment = Alignment.CenterEnd
         ) {
             SwitcherTheme(
-                onClick = clickListener,
+                isDarkThemeSwitcherListener = isDarkThemeSwitcherListener,
                 darkTheme = darkTheme
             )
         }
@@ -141,7 +156,7 @@ private fun SpacexLogoHeader(
 @Composable
 private fun SwitcherTheme(
     darkTheme: Boolean,
-    onClick: () -> Unit
+    isDarkThemeSwitcherListener: () -> Unit
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically
@@ -158,7 +173,7 @@ private fun SwitcherTheme(
                 .scale(0.8f)
                 .padding(top = 5.dp),
             checked = darkTheme,
-            onCheckedChange = { onClick() },
+            onCheckedChange = { isDarkThemeSwitcherListener() },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = Purple100,
             )
