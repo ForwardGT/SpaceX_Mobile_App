@@ -1,6 +1,5 @@
 package com.example.spacexmobileapp.presentation.rocket
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -31,16 +30,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.example.spacexmobileapp.domain.entity.Rocket
+import com.example.spacexmobileapp.extensions.AppendStyledAstronaut
 import com.example.spacexmobileapp.ui.theme.Gray40
 import com.example.spacexmobileapp.utils.Constants
 import com.example.spacexmobileapp.utils.CustomSpacer
@@ -51,19 +54,16 @@ fun RocketScreen(
     navController: NavController
 ) {
     val viewModel: RocketScreenViewModel = viewModel()
-    val rockets by viewModel.rockets.collectAsState()
+    val rocketsList by viewModel.rockets.collectAsState()
 
     Scaffold { paddingValues ->
         Column(
-            Modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            Row(
-                Modifier.fillMaxWidth()
-            ) {
-                Log.d("TAG", "NavigationButton: Recompos")
-                PostRockets(rockets)
+            Row(Modifier.fillMaxWidth()) {
+                PostRockets(rocketsList = rocketsList)
             }
         }
         BackHandler {
@@ -71,7 +71,6 @@ fun RocketScreen(
         }
     }
 }
-
 
 @Composable
 private fun PostRockets(
@@ -83,9 +82,16 @@ private fun PostRockets(
                 items = rocketsList,
                 key = { it.name }
             ) { rocket ->
-                OneRocket(rocket = rocket)
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    text = rocket.name,
+                    fontSize = Constants.FONT_SIZE_HEADER_MAIN.sp,
+                    fontWeight = FontWeight.SemiBold,
+                )
+                ImagePagerOneRocket(rocket = rocket)
                 DescriptionRocket(rocket = rocket)
-                CustomSpacer(top = Constants.PADDINGS_TOP_20)
+                CustomSpacer(top = Constants.PADDINGS_TOP_30)
             }
         }
     } else {
@@ -98,29 +104,9 @@ private fun PostRockets(
     }
 }
 
-
-@Composable
-private fun DescriptionRocket(
-    rocket: Rocket
-) {
-    Text(
-        text = "Name: ${rocket.name} \n" +
-                "First flight: ${rocket.firstFlight}\n" +
-                "Height: ${rocket.height}m.\n" +
-                "Diameter: ${rocket.diameter}m.\n" +
-                "Boosters: ${rocket.boosters}\n" +
-                "Stages: ${rocket.stages}\n" +
-                "Wikipedia: ${rocket.wikipedia}\n"
-    )
-    Text(
-        textAlign = TextAlign.Center,
-        text = "Description for rocket: \n ${rocket.description}"
-    )
-}
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun OneRocket(
+private fun ImagePagerOneRocket(
     rocket: Rocket,
 ) {
     val pagerState = rememberPagerState(
@@ -128,7 +114,6 @@ private fun OneRocket(
     )
 
     Box {
-
         HorizontalPager(
             state = pagerState,
             key = { rocket.image[it] }
@@ -137,7 +122,14 @@ private fun OneRocket(
             Card {
                 SubcomposeAsyncImage(
                     loading = {
-                        CircularProgressIndicator()
+                        Box(contentAlignment = Alignment.Center) {
+                            CircularProgressIndicator()
+                        }
+                    },
+                    error = {
+                        Box(contentAlignment = Alignment.Center) {
+                            CircularProgressIndicator()
+                        }
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -157,45 +149,64 @@ private fun OneRocket(
                 .padding(top = (Constants.ASYNC_IMAGE_HEIGHT / 2).dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-
-            NavigationButton(pagerState)
+            NavigationIconButton(
+                pagerState = pagerState,
+                pageRout = 0,
+                Icons.AutoMirrored.Filled.KeyboardArrowLeft
+            )
+            NavigationIconButton(
+                pagerState = pagerState,
+                pageRout = 1,
+                Icons.AutoMirrored.Filled.KeyboardArrowRight
+            )
         }
     }
 }
 
+@Composable
+private fun DescriptionRocket(
+    rocket: Rocket
+) {
+    Text(
+        text = buildAnnotatedString {
+            AppendStyledAstronaut("Name: ", rocket.name)
+            AppendStyledAstronaut("First flight: ", rocket.firstFlight)
+            AppendStyledAstronaut("Height: ", rocket.height.toString() + "m")
+            AppendStyledAstronaut("Diameter: ", rocket.diameter.toString() + "m")
+            AppendStyledAstronaut("Boosters: ", rocket.boosters.toString())
+            AppendStyledAstronaut("Stages: ", rocket.stages.toString())
+            AppendStyledAstronaut("Wikipedia: ", rocket.wikipedia)
+        },
+    )
+    Text(
+        textAlign = TextAlign.Center,
+        text = buildAnnotatedString {
+            AppendStyledAstronaut("Description for rocket:", "\n" + rocket.description)
+        }
+    )
+}
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun NavigationButton(
-    pagerState: PagerState
+private fun NavigationIconButton(
+    pagerState: PagerState,
+    pageRout: Int,
+    imageVector: ImageVector
 ) {
     val scope = rememberCoroutineScope()
 
     IconButton(
         onClick = {
             scope.launch {
-                pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                pagerState.animateScrollToPage(
+                    pagerState.currentPage + if (pageRout == 1) 1 else -1
+                )
             }
         }) {
         Icon(
-            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+            imageVector = imageVector,
             contentDescription = null,
             tint = Gray40,
-            modifier = Modifier.scale(1.3f)
-        )
-    }
-
-    IconButton(
-        onClick = {
-            scope.launch {
-                pagerState.animateScrollToPage(pagerState.currentPage + 1)
-            }
-        }) {
-        Icon(
-            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-            contentDescription = null,
-            tint = Gray40,
-            modifier = Modifier.scale(1.3f)
         )
     }
 }

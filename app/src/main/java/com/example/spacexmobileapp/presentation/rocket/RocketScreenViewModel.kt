@@ -19,10 +19,10 @@ class RocketScreenViewModel : ViewModel() {
     }
 
     private fun getRocketAll() {
-            viewModelScope.launch {
-                val responseRocket = ApiFactory.apiService.getRocket()
-                val postRocket = mapperRocket(responseRocket)
-                _rockets.value = postRocket
+        viewModelScope.launch {
+            val responseRocket = ApiFactory.apiService.getRocket()
+            val postRocket = mapperRocket(responseRocket)
+            _rockets.value = postRocket
         }
     }
 }
