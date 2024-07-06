@@ -1,6 +1,5 @@
 package com.example.spacexmobileapp.presentation.main
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,13 +28,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
-import androidx.lifecycle.viewModelScope
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.spacexmobileapp.utils.Constants
 import com.example.spacexmobileapp.utils.CustomSpacer
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -55,10 +51,6 @@ fun CarouselSlider(
             viewModel.changeFirstLoadingState()
         }
     }
-
-
-
-    Log.d("TAG", "CarouselSlider: загрузка")
 
     Column {
         HorizontalPager(
@@ -87,14 +79,14 @@ fun CarouselSlider(
                         .crossfade(true)
                         .build(),
                     contentDescription = null,
-                    modifier = Modifier.size(320.dp),
+                    modifier = Modifier.size(300.dp),
                     contentScale = ContentScale.Crop,
                     clipToBounds = true
                 )
             }
         }
 
-        CustomSpacer(top = 6)
+        CustomSpacer(top = Constants.PADDINGS_TOP_6)
 
         IndicatorsBallCarrousel(pagerState)
     }

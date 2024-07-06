@@ -36,6 +36,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import com.example.spacexmobileapp.R
 import com.example.spacexmobileapp.navigation.navigateTo
 import com.example.spacexmobileapp.ui.theme.Purple100
+import com.example.spacexmobileapp.utils.Constants
 import com.example.spacexmobileapp.utils.LocalDarkTheme
 
 @Composable
@@ -74,7 +75,9 @@ fun MainScreen(
                                     modifier = Modifier.size(30.dp)
                                 )
                             },
-                            label = { Text(text = item.nameItem) }
+                            label = {
+                                Text(text = item.nameItem)
+                            }
                         )
                     }
                 }
@@ -134,8 +137,8 @@ private fun SpacexLogoHeader(
                 contentScale = ContentScale.FillWidth
             )
             Text(
-                modifier = Modifier.padding(top = 5.dp),
-                fontSize = 19.sp,
+                modifier = Modifier.padding(top = Constants.PADDINGS_TOP_5.dp),
+                fontSize = Constants.FONT_SIZE_HEADER_MAIN.sp,
                 text = "Mobile app",
                 style = TextStyle(fontFamily = FontFamily.Cursive),
                 fontWeight = FontWeight.SemiBold
@@ -162,16 +165,16 @@ private fun SwitcherTheme(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            modifier = Modifier.padding(top = 5.dp),
+            modifier = Modifier.padding(top = Constants.PADDINGS_TOP_5.dp),
             style = TextStyle(fontFamily = FontFamily.Cursive),
             fontWeight = FontWeight.SemiBold,
-            fontSize = 19.sp,
+            fontSize = Constants.FONT_SIZE_HEADER_MAIN.sp,
             text = if (darkTheme) "Dark " else "Light"
         )
         Switch(
             modifier = Modifier
                 .scale(0.8f)
-                .padding(top = 5.dp),
+                .padding(top = Constants.PADDINGS_TOP_5.dp),
             checked = darkTheme,
             onCheckedChange = { isDarkThemeSwitcherListener() },
             colors = SwitchDefaults.colors(

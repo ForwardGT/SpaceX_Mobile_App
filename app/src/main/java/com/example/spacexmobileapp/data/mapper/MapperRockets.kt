@@ -3,8 +3,9 @@ package com.example.spacexmobileapp.data.mapper
 import com.example.spacexmobileapp.data.model.RocketInformationDto
 import com.example.spacexmobileapp.domain.entity.Rocket
 
-
-fun mapperRocket(responseRocket: List<RocketInformationDto>): List<Rocket> {
+fun mapperRocket(
+    responseRocket: List<RocketInformationDto>
+): List<Rocket> {
 
     val result = mutableListOf<Rocket>()
 
@@ -17,7 +18,7 @@ fun mapperRocket(responseRocket: List<RocketInformationDto>): List<Rocket> {
             boosters = item.boosters,
             wikipedia = item.wikipedia,
             description = item.description,
-            image = item.image.first(),
+            image = item.image,
             firstFlight = item.firstFlight
         )
         result.add(rocket)

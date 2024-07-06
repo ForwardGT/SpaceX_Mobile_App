@@ -1,6 +1,5 @@
 package com.example.spacexmobileapp.presentation.rocket
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.spacexmobileapp.data.mapper.mapperRocket
@@ -20,11 +19,9 @@ class RocketScreenViewModel : ViewModel() {
     }
 
     private fun getRocketAll() {
-            Log.d("TAG", "getRocketAll: ${_rockets.value}")
             viewModelScope.launch {
                 val responseRocket = ApiFactory.apiService.getRocket()
                 val postRocket = mapperRocket(responseRocket)
-
                 _rockets.value = postRocket
         }
     }

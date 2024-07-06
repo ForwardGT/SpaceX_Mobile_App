@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 class MainViewModel : ViewModel() {
 
     val images = LinkCarouselObject.images
+
     private val _firstLoading = MutableStateFlow(true)
     val firstLoading = _firstLoading.asStateFlow()
 

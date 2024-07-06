@@ -6,7 +6,7 @@ data class Rocket(
     val description: String,
     val firstFlight: String,
     val stages: Int,
-    val image: String,
+    val image: List<String>,
     val wikipedia: String,
     val height: Float,
     val diameter: Float

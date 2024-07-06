@@ -14,4 +14,3 @@ data class RocketInformationDto(
     @SerializedName("height") val height: HeightRocketDto,
     @SerializedName("diameter") val diameter: DiameterRocketDto
 )
-
