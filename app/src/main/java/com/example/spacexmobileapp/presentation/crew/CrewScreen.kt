@@ -1,5 +1,6 @@
 package com.example.spacexmobileapp.presentation.crew
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,17 +12,20 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.spacexmobileapp.domain.entity.Astronaut
 import com.example.spacexmobileapp.extensions.AppendStyledAstronaut
@@ -32,7 +36,7 @@ import com.example.spacexmobileapp.utils.CustomSpacer
 import com.example.spacexmobileapp.utils.LocalDarkTheme
 
 @Composable
-fun CrewScreen() {
+fun CrewScreen(navController: NavController) {
 
     val viewModel: CrewScreenViewModel = viewModel()
     val crew by viewModel.crew.collectAsState()
@@ -43,7 +47,19 @@ fun CrewScreen() {
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            AstronautPost(crew)
+            if (crew.isNotEmpty()) {
+                AstronautPost(crew)
+            } else {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+        }
+        BackHandler {
+            navController.popBackStack()
         }
     }
 }
@@ -114,7 +130,7 @@ private fun InformationAstronaut(
                 AppendStyledAstronaut("Status:", astronaut.status)
                 AppendStyledAstronaut("Agency:", astronaut.agency)
                 AppendStyledAstronaut("Wikipedia:", astronaut.wikipedia)
-            },
+            }
         )
     }
 }
