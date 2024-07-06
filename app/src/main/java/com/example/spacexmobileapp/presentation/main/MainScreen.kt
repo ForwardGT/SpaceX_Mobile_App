@@ -137,7 +137,7 @@ private fun SpacexLogoHeader(
                 contentScale = ContentScale.FillWidth
             )
             Text(
-                modifier = Modifier.padding(top = Constants.PADDINGS_TOP_5.dp),
+                modifier = Modifier.padding(top = Constants.PADDINGS_TOP_6.dp),
                 fontSize = Constants.FONT_SIZE_HEADER_MAIN.sp,
                 text = "Mobile app",
                 style = TextStyle(fontFamily = FontFamily.Cursive),
@@ -165,7 +165,7 @@ private fun SwitcherTheme(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            modifier = Modifier.padding(top = Constants.PADDINGS_TOP_5.dp),
+            modifier = Modifier.padding(top = Constants.PADDINGS_TOP_6.dp),
             style = TextStyle(fontFamily = FontFamily.Cursive),
             fontWeight = FontWeight.SemiBold,
             fontSize = Constants.FONT_SIZE_HEADER_MAIN.sp,
@@ -174,7 +174,7 @@ private fun SwitcherTheme(
         Switch(
             modifier = Modifier
                 .scale(0.8f)
-                .padding(top = Constants.PADDINGS_TOP_5.dp),
+                .padding(top = Constants.PADDINGS_TOP_6.dp),
             checked = darkTheme,
             onCheckedChange = { isDarkThemeSwitcherListener() },
             colors = SwitchDefaults.colors(

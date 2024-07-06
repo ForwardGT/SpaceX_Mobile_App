@@ -12,3 +12,6 @@ val Pink40 = Color(0xFF7D5260)
 
 val Purple100 = Color(0xFF2A0172)
 var Gray40 = Color(0xFF484849)
+
+val Black20 = Color(0xFF1D1C1C)
+val Gray10 = Color(0xFFDEDEE2)
