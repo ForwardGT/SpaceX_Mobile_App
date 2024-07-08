@@ -43,10 +43,9 @@ import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.example.spacexmobileapp.domain.entity.Rocket
-import com.example.spacexmobileapp.extensions.AppendStyledAstronaut
+import com.example.spacexmobileapp.extensions.AppendStyledText
 import com.example.spacexmobileapp.ui.theme.Gray40
 import com.example.spacexmobileapp.utils.Constants
-import com.example.spacexmobileapp.utils.CustomSpacer
 import kotlinx.coroutines.launch
 
 @Composable
@@ -77,7 +76,9 @@ private fun PostRockets(
     rocketsList: List<Rocket>
 ) {
     if (rocketsList.isNotEmpty()) {
-        LazyColumn {
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(Constants.PADDINGS_TOP_20.dp)
+        ) {
             items(
                 items = rocketsList,
                 key = { it.name }
@@ -91,7 +92,6 @@ private fun PostRockets(
                 )
                 ImagePagerOneRocket(rocket = rocket)
                 DescriptionRocket(rocket = rocket)
-                CustomSpacer(top = Constants.PADDINGS_TOP_30)
             }
         }
     } else {
@@ -169,19 +169,19 @@ private fun DescriptionRocket(
 ) {
     Text(
         text = buildAnnotatedString {
-            AppendStyledAstronaut("Name: ", rocket.name)
-            AppendStyledAstronaut("First flight: ", rocket.firstFlight)
-            AppendStyledAstronaut("Height: ", rocket.height.toString() + "m")
-            AppendStyledAstronaut("Diameter: ", rocket.diameter.toString() + "m")
-            AppendStyledAstronaut("Boosters: ", rocket.boosters.toString())
-            AppendStyledAstronaut("Stages: ", rocket.stages.toString())
-            AppendStyledAstronaut("Wikipedia: ", rocket.wikipedia)
+            AppendStyledText("Name: ", rocket.name)
+            AppendStyledText("First flight: ", rocket.firstFlight)
+            AppendStyledText("Height: ", rocket.height.toString() + "m")
+            AppendStyledText("Diameter: ", rocket.diameter.toString() + "m")
+            AppendStyledText("Boosters: ", rocket.boosters.toString())
+            AppendStyledText("Stages: ", rocket.stages.toString())
+            AppendStyledText("Wikipedia: ", rocket.wikipedia)
         },
     )
     Text(
         textAlign = TextAlign.Center,
         text = buildAnnotatedString {
-            AppendStyledAstronaut("Description for rocket:", "\n" + rocket.description)
+            AppendStyledText("Description for rocket:", "\n" + rocket.description)
         }
     )
 }

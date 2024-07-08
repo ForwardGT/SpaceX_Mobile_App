@@ -7,7 +7,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 
 @Composable
-fun AnnotatedString.Builder.AppendStyledAstronaut(
+fun AnnotatedString.Builder.AppendStyledText(
     label: String,
     value: String
 ) {

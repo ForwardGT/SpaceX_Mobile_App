@@ -28,7 +28,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.spacexmobileapp.domain.entity.Astronaut
-import com.example.spacexmobileapp.extensions.AppendStyledAstronaut
+import com.example.spacexmobileapp.extensions.AppendStyledText
 import com.example.spacexmobileapp.ui.theme.Black20
 import com.example.spacexmobileapp.ui.theme.Gray10
 import com.example.spacexmobileapp.utils.Constants
@@ -85,7 +85,7 @@ private fun AstronautPost(
                         .background(color = if (isDarkTheme) Black20 else Gray10)
                 ) {
                     PhotoAstronaut(modifier = Modifier.weight(0.5f), astronaut)
-                    CustomSpacer(start = 3)
+                    CustomSpacer(h = 3.dp)
                     InformationAstronaut(modifier = Modifier.weight(0.5f), astronaut)
                 }
             } else {
@@ -94,7 +94,7 @@ private fun AstronautPost(
                         .clip(RoundedCornerShape(10.dp))
                         .background(color = if (isDarkTheme) Black20 else Gray10)
                 ) {
-                    CustomSpacer(start = 3)
+                    CustomSpacer(h = 3.dp)
                     InformationAstronaut(modifier = Modifier.weight(0.5f), astronaut)
                     PhotoAstronaut(modifier = Modifier.weight(0.5f), astronaut)
                 }
@@ -126,10 +126,10 @@ private fun InformationAstronaut(
     Box(modifier = modifier) {
         Text(
             text = buildAnnotatedString {
-                AppendStyledAstronaut("Name:", astronaut.name)
-                AppendStyledAstronaut("Status:", astronaut.status)
-                AppendStyledAstronaut("Agency:", astronaut.agency)
-                AppendStyledAstronaut("Wikipedia:", astronaut.wikipedia)
+                AppendStyledText("Name:", astronaut.name)
+                AppendStyledText("Status:", astronaut.status)
+                AppendStyledText("Agency:", astronaut.agency)
+                AppendStyledText("Wikipedia:", astronaut.wikipedia)
             }
         )
     }

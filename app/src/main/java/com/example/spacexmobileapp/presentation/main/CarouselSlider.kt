@@ -86,7 +86,7 @@ fun CarouselSlider(
             }
         }
 
-        CustomSpacer(top = Constants.PADDINGS_TOP_6)
+        CustomSpacer(v = Constants.PADDINGS_TOP_6.dp)
 
         IndicatorsBallCarrousel(pagerState)
     }
