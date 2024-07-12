@@ -1,1 +1,1 @@
-Mobile application for training
+First mobile application for training
