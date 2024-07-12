@@ -9,6 +9,6 @@ import com.example.spacexmobileapp.presentation.history.HistoryScreen
 fun NavGraphBuilder.addHistoryScreen(navController: NavController) {
 
     composable(Screen.History.route) {
-        HistoryScreen()
+        HistoryScreen(navController)
     }
 }

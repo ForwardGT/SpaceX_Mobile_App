@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -33,7 +34,9 @@ import com.example.spacexmobileapp.ui.theme.Black20
 import com.example.spacexmobileapp.ui.theme.Gray10
 import com.example.spacexmobileapp.utils.Constants
 import com.example.spacexmobileapp.utils.CustomSpacer
+import com.example.spacexmobileapp.utils.GradientLinkButton
 import com.example.spacexmobileapp.utils.LocalDarkTheme
+import com.example.spacexmobileapp.utils.openLinkInBrowser
 
 @Composable
 fun CrewScreen(navController: NavController) {
@@ -123,14 +126,36 @@ private fun InformationAstronaut(
     modifier: Modifier,
     astronaut: Astronaut
 ) {
-    Box(modifier = modifier) {
+    val context = LocalContext.current
+    Column(modifier = modifier) {
         Text(
             text = buildAnnotatedString {
-                AppendStyledText("Name:", astronaut.name)
-                AppendStyledText("Status:", astronaut.status)
-                AppendStyledText("Agency:", astronaut.agency)
-                AppendStyledText("Wikipedia:", astronaut.wikipedia)
+                AppendStyledText(label = "Name:", value = astronaut.name)
+                AppendStyledText(label = "Status:", value = astronaut.status)
+                AppendStyledText(
+                    label = "Agency:",
+                    value = astronaut.agency,
+                    newLineIsNeeded = false
+                )
             }
         )
+        Row {
+            Text(
+                text = buildAnnotatedString {
+                    AppendStyledText(
+                        label = "Wikipedia:",
+                        value = "",
+                        newLineIsNeeded = false
+                    )
+                }
+            )
+            GradientLinkButton(
+                label = "Link",
+                height = 20.dp,
+                width = 50.dp
+            ) {
+                openLinkInBrowser(context, astronaut.wikipedia)
+            }
+        }
     }
 }

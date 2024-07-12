@@ -46,6 +46,8 @@ import com.example.spacexmobileapp.domain.entity.Rocket
 import com.example.spacexmobileapp.extensions.AppendStyledText
 import com.example.spacexmobileapp.ui.theme.Gray40
 import com.example.spacexmobileapp.utils.Constants
+import com.example.spacexmobileapp.utils.GradientLinkButton
+import com.example.spacexmobileapp.utils.openLinkInBrowser
 import kotlinx.coroutines.launch
 
 @Composable
@@ -167,17 +169,39 @@ private fun ImagePagerOneRocket(
 private fun DescriptionRocket(
     rocket: Rocket
 ) {
+    val context = LocalContext.current
     Text(
         text = buildAnnotatedString {
-            AppendStyledText("Name: ", rocket.name)
-            AppendStyledText("First flight: ", rocket.firstFlight)
-            AppendStyledText("Height: ", rocket.height.toString() + "m")
-            AppendStyledText("Diameter: ", rocket.diameter.toString() + "m")
-            AppendStyledText("Boosters: ", rocket.boosters.toString())
-            AppendStyledText("Stages: ", rocket.stages.toString())
-            AppendStyledText("Wikipedia: ", rocket.wikipedia)
+            AppendStyledText(label = "Name: ", value = rocket.name)
+            AppendStyledText(label = "First flight: ", value = rocket.firstFlight)
+            AppendStyledText(label = "Height: ", value = rocket.height.toString() + "m")
+            AppendStyledText(label = "Diameter: ", value = rocket.diameter.toString() + "m")
+            AppendStyledText(label = "Boosters: ", value = rocket.boosters.toString())
+            AppendStyledText(
+                label = "Stages: ",
+                value = rocket.stages.toString(),
+                newLineIsNeeded = false
+            )
         },
     )
+    Row {
+        Text(
+            text = buildAnnotatedString {
+                AppendStyledText(
+                    label = "Wikipedia:",
+                    value = "",
+                )
+            }
+        )
+        GradientLinkButton(
+            label = "Link",
+            height = 20.dp,
+            width = 50.dp
+        ) {
+            openLinkInBrowser(context, rocket.wikipedia)
+        }
+
+    }
     Text(
         textAlign = TextAlign.Center,
         text = buildAnnotatedString {
@@ -202,7 +226,8 @@ private fun NavigationIconButton(
                     pagerState.currentPage + if (pageRout == 1) 1 else -1
                 )
             }
-        }) {
+        }
+    ) {
         Icon(
             imageVector = imageVector,
             contentDescription = null,
