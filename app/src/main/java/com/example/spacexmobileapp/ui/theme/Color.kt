@@ -15,3 +15,10 @@ var Gray40 = Color(0xFF484849)
 
 val Black20 = Color(0xFF1D1C1C)
 val Gray10 = Color(0xFFDEDEE2)
+val ReferenceColor40 = Color(0xFF774DC0)
+
+val Gradient01 = Color(0xff83b5e1)
+val Gradient02 = Color(0xff034f93)
+
+val Gradient03 = Color(0xff367070)
+val Gradient04 = Color(0xff695353)

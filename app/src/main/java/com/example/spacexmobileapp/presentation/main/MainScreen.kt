@@ -34,15 +34,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.example.spacexmobileapp.R
+import com.example.spacexmobileapp.navigation.Screen
 import com.example.spacexmobileapp.navigation.navigateTo
 import com.example.spacexmobileapp.ui.theme.Purple100
 import com.example.spacexmobileapp.utils.Constants
 import com.example.spacexmobileapp.utils.LocalDarkTheme
 
 @Composable
-fun MainScreen(
-    navController: NavController
-) {
+fun MainScreen(navController: NavController) {
+
     var isDarkTheme by LocalDarkTheme.current
     val viewModel: MainViewModel = viewModel()
 
@@ -67,6 +67,7 @@ fun MainScreen(
                                 if (!selected) {
                                     navController.navigateTo(item.screen.route)
                                 }
+
                             },
                             icon = {
                                 Icon(
@@ -90,7 +91,8 @@ fun MainScreen(
         ) {
             MainScreenContent(
                 isDarkTheme = isDarkTheme,
-                viewModel = viewModel
+                viewModel = viewModel,
+                navController = navController
             ) {
                 isDarkTheme = !isDarkTheme
             }
@@ -100,6 +102,7 @@ fun MainScreen(
 
 @Composable
 private fun MainScreenContent(
+    navController: NavController,
     viewModel: MainViewModel,
     isDarkTheme: Boolean,
     isDarkThemeSwitcherListener: () -> Unit
@@ -110,13 +113,19 @@ private fun MainScreenContent(
     )
     CarouselSlider(viewModel = viewModel)
 
-    Box {
+    Column(modifier = Modifier.fillMaxWidth()) {
         Text(
             textAlign = TextAlign.Center,
             text = stringResource(R.string.description_company_spacex)
         )
+        GradientButton(
+            navController = navController,
+            label = "Spacex Gallery",
+            route = Screen.Gallery.route
+        )
     }
 }
+
 
 @Composable
 private fun SpacexLogoHeader(
@@ -136,12 +145,9 @@ private fun SpacexLogoHeader(
                 contentDescription = "spaceX",
                 contentScale = ContentScale.FillWidth
             )
-            Text(
-                modifier = Modifier.padding(top = Constants.PADDINGS_TOP_6.dp),
-                fontSize = Constants.FONT_SIZE_HEADER_MAIN.sp,
-                text = "Mobile app",
-                style = TextStyle(fontFamily = FontFamily.Cursive),
-                fontWeight = FontWeight.SemiBold
+            HeaderText(
+                text = "Mobile App",
+                modifier = Modifier.padding(top = Constants.PADDINGS_TOP_6.dp)
             )
         }
         Box(
@@ -156,6 +162,7 @@ private fun SpacexLogoHeader(
     }
 }
 
+
 @Composable
 private fun SwitcherTheme(
     darkTheme: Boolean,
@@ -164,13 +171,11 @@ private fun SwitcherTheme(
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            modifier = Modifier.padding(top = Constants.PADDINGS_TOP_6.dp),
-            style = TextStyle(fontFamily = FontFamily.Cursive),
-            fontWeight = FontWeight.SemiBold,
-            fontSize = Constants.FONT_SIZE_HEADER_MAIN.sp,
-            text = if (darkTheme) "Dark " else "Light"
+        HeaderText(
+            text = if (darkTheme) "Dark " else "Light",
+            modifier = Modifier.padding(top = Constants.PADDINGS_TOP_6.dp)
         )
+
         Switch(
             modifier = Modifier
                 .scale(0.8f)
@@ -182,4 +187,20 @@ private fun SwitcherTheme(
             )
         )
     }
+}
+
+@Composable
+fun HeaderText(
+    text: String,
+    modifier: Modifier,
+    centredText: Boolean = false
+) {
+    Text(
+        modifier = modifier,
+        fontSize = Constants.FONT_SIZE_HEADER_MAIN.sp,
+        style = TextStyle(fontFamily = FontFamily.Cursive),
+        fontWeight = FontWeight.SemiBold,
+        textAlign = if (centredText) TextAlign.Center else null,
+        text = text
+    )
 }

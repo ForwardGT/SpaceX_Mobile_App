@@ -4,13 +4,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.spacexmobileapp.navigation.Screen
-import com.example.spacexmobileapp.presentation.main.MainScreen
+import com.example.spacexmobileapp.presentation.galery.GalleryScreen
 
-fun NavGraphBuilder.addMainScreen(navController: NavController) {
+fun NavGraphBuilder.addGalleryScreen(navController: NavController) {
 
-    composable(Screen.Main.route) {
-        MainScreen(
-            navController = navController
-        )
+    composable(Screen.Gallery.route) {
+        GalleryScreen(navController)
     }
 }

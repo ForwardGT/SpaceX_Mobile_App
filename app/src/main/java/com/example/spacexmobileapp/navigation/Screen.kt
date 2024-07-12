@@ -8,6 +8,7 @@ sealed class Screen(
     data object RocketsCompany : Screen(ROCKET_COMPANY_SCREEN)
     data object Crew : Screen(CREW_SCREEN)
     data object History : Screen(HISTORY_SCREEN)
+    data object Gallery : Screen(GALLERY_SCREEN)
 
 
     companion object {
@@ -16,5 +17,6 @@ sealed class Screen(
         const val CREW_SCREEN = "crew"
         const val HISTORY_SCREEN = "history"
         const val LAUNCH_SCREEN = "launch"
+        const val GALLERY_SCREEN = "gallery"
     }
 }
