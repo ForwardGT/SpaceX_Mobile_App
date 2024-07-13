@@ -57,6 +57,9 @@ dependencies {
     implementation(libs.logging.interceptor.okhttp)
     implementation(libs.converter.gson.retrofit2)
     implementation(libs.navigation.compose)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

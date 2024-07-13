@@ -1,6 +1,7 @@
 package com.example.spacexmobileapp.presentation.main
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -13,11 +14,14 @@ import androidx.navigation.compose.rememberNavController
 import com.example.spacexmobileapp.navigation.NavGraph
 import com.example.spacexmobileapp.ui.theme.SpaceXMobileAppTheme
 import com.example.spacexmobileapp.utils.LocalDarkTheme
+import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
+
+    val context: Context by inject()
+
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         enableEdgeToEdge()

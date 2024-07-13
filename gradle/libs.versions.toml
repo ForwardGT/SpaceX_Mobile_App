@@ -14,6 +14,7 @@ google_gson = "2.11.0"
 converter_gson_retrofit = "2.9.0"
 logging_interceptor_okhttp = "4.9.3"
 nav_version = "2.7.7"
+koin-bom = "3.5.6"
 
 
 [libraries]
@@ -38,9 +39,11 @@ code-gson-google = { group = "com.google.code.gson", name = "gson", version.ref 
 converter-gson-retrofit2 = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converter_gson_retrofit" }
 logging-interceptor-okhttp = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "logging_interceptor_okhttp" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "nav_version" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-bom" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-bom" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose",version.ref = "koin-bom" }
 
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-

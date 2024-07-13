@@ -10,7 +10,7 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Launch.route
+        startDestination = Screen.Main.route
     ) {
         addSettingNavGraph(navController)
     }

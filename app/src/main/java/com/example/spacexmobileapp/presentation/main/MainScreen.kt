@@ -30,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.example.spacexmobileapp.R
@@ -39,12 +38,13 @@ import com.example.spacexmobileapp.navigation.navigateTo
 import com.example.spacexmobileapp.ui.theme.Purple100
 import com.example.spacexmobileapp.utils.Constants
 import com.example.spacexmobileapp.utils.LocalDarkTheme
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainScreen(navController: NavController) {
 
     var isDarkTheme by LocalDarkTheme.current
-    val viewModel: MainViewModel = viewModel()
+    val viewModel: MainViewModel = koinViewModel()
 
     Scaffold(
         bottomBar = {
