@@ -20,18 +20,18 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.spacexmobileapp.extensions.AppendStyledText
 import com.example.spacexmobileapp.utils.Constants
 import com.example.spacexmobileapp.utils.CustomSpacer
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HistoryScreen(
     navController: NavController
 ) {
 
-    val viewModel: HistoryScreenViewModel = viewModel()
+    val viewModel: HistoryScreenViewModel = koinViewModel()
     val blockHistory by viewModel.history.collectAsState()
 
 

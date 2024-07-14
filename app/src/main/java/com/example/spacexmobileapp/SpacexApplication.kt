@@ -1,7 +1,13 @@
 package com.example.spacexmobileapp
 
 import android.app.Application
-import com.example.spacexmobileapp.presentation.main.MainViewModel
+import com.example.spacexmobileapp.data.repository.RepositoryImpl
+import com.example.spacexmobileapp.domain.repository.SpacexRepository
+import com.example.spacexmobileapp.presentation.crew.CrewScreenViewModel
+import com.example.spacexmobileapp.presentation.galery.GalleryScreenViewModel
+import com.example.spacexmobileapp.presentation.history.HistoryScreenViewModel
+import com.example.spacexmobileapp.presentation.main.MainScreenViewModel
+import com.example.spacexmobileapp.presentation.rocket.RocketScreenViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -14,13 +20,39 @@ class SpacexApplication : Application() {
         startKoin {
             androidContext(this@SpacexApplication)
 
-            modules(viewModel)
+            modules(
+                repository,
+                historyScreenViewModel,
+                rocketScreenViewModel,
+                mainScreenViewModel,
+                crewScreenViewModel,
+                galleryScreenViewModel
+            )
         }
     }
 }
 
-val viewModel = module {
-    viewModel {
-        MainViewModel()
-    }
+
+val historyScreenViewModel = module {
+    viewModel { HistoryScreenViewModel() }
+}
+
+val rocketScreenViewModel = module {
+    viewModel { RocketScreenViewModel() }
+}
+
+val mainScreenViewModel = module {
+    viewModel { MainScreenViewModel() }
+}
+
+val crewScreenViewModel = module {
+    viewModel { CrewScreenViewModel() }
+}
+
+val galleryScreenViewModel = module {
+    viewModel { GalleryScreenViewModel() }
+}
+
+val repository = module {
+    single<SpacexRepository> { RepositoryImpl() }
 }

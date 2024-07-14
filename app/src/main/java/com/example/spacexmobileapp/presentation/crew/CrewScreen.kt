@@ -25,7 +25,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.spacexmobileapp.domain.entity.Astronaut
@@ -37,11 +36,12 @@ import com.example.spacexmobileapp.utils.CustomSpacer
 import com.example.spacexmobileapp.utils.GradientLinkButton
 import com.example.spacexmobileapp.utils.LocalDarkTheme
 import com.example.spacexmobileapp.utils.openLinkInBrowser
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun CrewScreen(navController: NavController) {
 
-    val viewModel: CrewScreenViewModel = viewModel()
+    val viewModel: CrewScreenViewModel = koinViewModel()
     val crew by viewModel.crew.collectAsState()
 
     Scaffold { paddingValues ->

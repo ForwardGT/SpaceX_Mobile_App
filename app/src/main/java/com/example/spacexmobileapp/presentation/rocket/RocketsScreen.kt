@@ -38,7 +38,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
@@ -49,12 +48,13 @@ import com.example.spacexmobileapp.utils.Constants
 import com.example.spacexmobileapp.utils.GradientLinkButton
 import com.example.spacexmobileapp.utils.openLinkInBrowser
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RocketScreen(
     navController: NavController
 ) {
-    val viewModel: RocketScreenViewModel = viewModel()
+    val viewModel: RocketScreenViewModel = koinViewModel()
     val rocketsList by viewModel.rockets.collectAsState()
 
     Scaffold { paddingValues ->

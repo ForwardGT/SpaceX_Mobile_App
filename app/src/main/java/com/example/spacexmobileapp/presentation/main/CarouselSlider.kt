@@ -37,7 +37,7 @@ import kotlin.math.absoluteValue
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CarouselSlider(
-    viewModel: MainViewModel
+    viewModel: MainScreenViewModel
 ) {
     val images = viewModel.images
     val firstState by viewModel.firstLoading.collectAsState()

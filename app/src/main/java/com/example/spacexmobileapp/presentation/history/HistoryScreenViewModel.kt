@@ -2,14 +2,17 @@ package com.example.spacexmobileapp.presentation.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.spacexmobileapp.data.mapper.mapperHistory
-import com.example.spacexmobileapp.data.network.ApiFactory
 import com.example.spacexmobileapp.domain.entity.BlockHistory
+import com.example.spacexmobileapp.domain.repository.SpacexRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class HistoryScreenViewModel : ViewModel() {
+class HistoryScreenViewModel : ViewModel(), KoinComponent {
+
+    private val repository: SpacexRepository by inject()
 
     private val _history = MutableStateFlow(listOf<BlockHistory>())
     val history = _history.asStateFlow()
@@ -20,9 +23,7 @@ class HistoryScreenViewModel : ViewModel() {
 
     private fun loadHistory() {
         viewModelScope.launch {
-            val responseHistory = ApiFactory.apiService.getHistory()
-            val postHistory = mapperHistory(responseHistory)
-            _history.value = postHistory
+            _history.value = repository.loadHistory()
         }
     }
 }

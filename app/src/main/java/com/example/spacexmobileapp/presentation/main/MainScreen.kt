@@ -44,7 +44,7 @@ import org.koin.androidx.compose.koinViewModel
 fun MainScreen(navController: NavController) {
 
     var isDarkTheme by LocalDarkTheme.current
-    val viewModel: MainViewModel = koinViewModel()
+    val viewModel: MainScreenViewModel = koinViewModel()
 
     Scaffold(
         bottomBar = {
@@ -103,7 +103,7 @@ fun MainScreen(navController: NavController) {
 @Composable
 private fun MainScreenContent(
     navController: NavController,
-    viewModel: MainViewModel,
+    viewModel: MainScreenViewModel,
     isDarkTheme: Boolean,
     isDarkThemeSwitcherListener: () -> Unit
 ) {

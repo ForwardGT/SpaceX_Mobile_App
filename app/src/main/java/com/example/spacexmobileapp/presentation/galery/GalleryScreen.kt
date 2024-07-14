@@ -31,15 +31,15 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun GalleryScreen(
     navController: NavController
 ) {
-    val viewModel: GalleryScreenViewModel = viewModel()
+    val viewModel: GalleryScreenViewModel = koinViewModel()
 
     val selectImage by viewModel.selectedImage.collectAsState()
     val images by viewModel.images.collectAsState()

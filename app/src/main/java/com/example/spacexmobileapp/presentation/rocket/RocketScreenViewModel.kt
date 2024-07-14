@@ -2,27 +2,28 @@ package com.example.spacexmobileapp.presentation.rocket
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.spacexmobileapp.data.mapper.mapperRocket
-import com.example.spacexmobileapp.data.network.ApiFactory
 import com.example.spacexmobileapp.domain.entity.Rocket
+import com.example.spacexmobileapp.domain.repository.SpacexRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class RocketScreenViewModel : ViewModel() {
+class RocketScreenViewModel : ViewModel(), KoinComponent {
+
+    private val repository: SpacexRepository by inject()
 
     private val _rockets = MutableStateFlow<List<Rocket>>(listOf())
     val rockets = _rockets.asStateFlow()
 
     init {
-        getRocketAll()
+        getRocket()
     }
 
-    private fun getRocketAll() {
+    private fun getRocket() {
         viewModelScope.launch {
-            val responseRocket = ApiFactory.apiService.getRocket()
-            val postRocket = mapperRocket(responseRocket)
-            _rockets.value = postRocket
+            _rockets.value = repository.loadRocket()
         }
     }
 }
