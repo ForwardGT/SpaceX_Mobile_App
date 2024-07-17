@@ -51,6 +51,11 @@ fun CarouselSlider(
             viewModel.changeFirstLoadingState()
         }
     }
+    LaunchedEffect(pagerState) {
+        if (pagerState.currentPage == 11) {
+            pagerState.scrollToPage(1)
+        }
+    }
 
     Column {
         HorizontalPager(
