@@ -9,5 +9,9 @@
   <img src="https://imgur.com/yvnZPjW.jpeg" alt="Image 3" width="200"/>
   <img src="https://imgur.com/LcUa7kC.jpeg" alt="Image 1" width="200"/>
   <img src="https://imgur.com/99E4adp.jpeg" alt="Image 2" width="200"/>
+</p>
+<p align="center">
   <img src="https://imgur.com/jCoFRrX.jpeg" alt="Image 3" width="200"/>
+  <img src="https://imgur.com/4fMKT3Q.jpeg" alt="Image 3" width="200"/>
+  <img src="https://imgur.com/V9HTmCm.jpeg" alt="Image 1" width="200"/>
 </p>
